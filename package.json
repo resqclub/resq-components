@@ -1,0 +1,8 @@
+{
+  "name": "resq-components",
+  "version": "1.0.0",
+  "main": "index.js",
+  "module": "index.mjs",
+  "author": "Antti Kissaniemi <antti@resq-club.com>",
+  "license": "MIT"
+}
