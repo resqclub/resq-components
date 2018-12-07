@@ -1,7 +1,7 @@
 <!--
 	A simple button component to test out importing .vue components
 
-	<Button></Button-test>
+	<Button></Button>
 -->
 
 <template>
@@ -13,13 +13,14 @@ export default {
 	methods: {
 		clicked() {
 			this.$emit('click')
-			// console.log('clicked')
 		}
 	}
 };
 </script>
 
 <style lang='stylus' scoped>
+@import './common.styl'
+
 button {
 	border: 1px solid #888
 	height: 32px
@@ -33,13 +34,18 @@ button {
 	outline: none;
 
 	&:hover {
-		background: black
+		background: #666
 		color: white
+	}
+
+	&:active {
+		background: black
 	}
 
 	&:focus {
 		border-color: black
 	}
+
 }
 
 </style>

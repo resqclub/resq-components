@@ -1,0 +1,26 @@
+#!/usr/bin/env node
+
+let fs = require('fs')
+
+let compiler = require('vue-template-compiler')
+
+let result = compiler.compile(`<div>
+<h1>hello</h1>
+<slot></slot>
+</div>`)
+
+let log = console.log
+
+log('result', result.render)
+
+function readFile(file) {
+	return fs.readFileSync(file, 'utf8')
+} 
+
+result = compiler.parseComponent(readFile('./src/Button.vue'))
+
+log('result 2', result.template.content)
+
+let result3 = compiler.compile(result.template.content)
+
+log('result3', result3.render)
