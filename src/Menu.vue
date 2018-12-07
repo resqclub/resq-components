@@ -33,11 +33,5 @@ ul.Menu {
 	background: $color-resq-green
 
 	text-align: center
-
-	> * {
-		display: inline-block
-		color: white
-		margin: 0 10px		
-	}
 }
 </style>

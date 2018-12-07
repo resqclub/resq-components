@@ -2,7 +2,9 @@ A menu
 
 ```js
 <Menu message="Hello">
-	<li>Item</li>
-	<li>Hello</li>
+	<MenuItem>Item</MenuItem>
+	<MenuItem>Hello</MenuItem>
+	<MenuItem align="left">RESQ</MenuItem>
+	<MenuItem align="right">Language</MenuItem>
 </Menu>
 ```
