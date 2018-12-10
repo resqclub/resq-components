@@ -1,4 +1,5 @@
 module.exports = {
-	components: 'src/*.vue'
+	components: 'src/*.vue',
+	skipComponentsWithoutExample: true
 }
 

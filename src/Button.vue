@@ -22,30 +22,41 @@ export default {
 @import './common.styl'
 
 button {
-	border: 1px solid #888
+	// border: 1px solid #888
 	height: 32px
-	padding: 10px
+	padding: 10px 15px
 	line-height: 14px
 	border-radius: 16px
-	font-size: 14px
-	text-transform: uppercase
-	font-variant: small-caps
+	font-size: $size-s
+	// text-transform: uppercase
+	// font-variant: small-caps
+
+	background #1bcbac
+	color: white
+
+	border: none
+
+	cursor: pointer
 
 	outline: none;
 
 	&:hover {
-		background: #666
-		color: white
+		// background: #666
+		// color: white
 	}
 
 	&:active {
-		background: black
+		// background: black
 	}
 
 	&:focus {
-		border-color: black
+		// border-color: black
 	}
 
+	&:disabled {
+		cursor: default
+		background #aaa
+	}
 }
 
 </style>

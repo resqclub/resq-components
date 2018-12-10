@@ -1,6 +1,7 @@
-Standard button
-
+Official button
 ```js
-<Button>Hello</Button>
+<div>
+    <Button>Normal</Button>
+    <Button disabled="disabled">Disabled</Button>
+</div>
 ```
-
