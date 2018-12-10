@@ -4,5 +4,5 @@ cd $(dirname "$0")
 export PATH=$PATH:./node_modules/.bin
 
 # webpack
-webpack --config webpack.config.debug.js
+webpack --config webpack.config.js
 
