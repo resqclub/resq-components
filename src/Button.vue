@@ -40,6 +40,8 @@ button {
 
 	outline: none;
 
+	white-space: nowrap;
+
 	&:hover {
 		// background: #666
 		// color: white
