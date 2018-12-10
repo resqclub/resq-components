@@ -14,6 +14,7 @@ export default {
             }
         }
         setTimeout(() => {
+            this.$el.onclick = event => event.stopPropagation()
             window.addEventListener('click', this.dismissableMixin_destroy)
             window.addEventListener('keydown', this.dismissableMixin_escDestroyer)
         }, 10)
