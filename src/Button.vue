@@ -36,7 +36,7 @@ button {
 	cursor: pointer;
 	outline: none;
 	white-space: nowrap;
-	box-shadow: 0px 1px 5px 0px #00000061;
+    box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.21);
 
 	&:hover {
 		// background: #666
@@ -45,6 +45,7 @@ button {
 
 	&:active {
 		// background: black
+		box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.21);
 	}
 
 	&:focus {
