@@ -24,8 +24,7 @@ export default {
 @import './common.styl';
 
 button {
-	font-family: 'brother-1816'
-	
+	font-family: 'brother-1816';
 	height: 32px;
 	padding: 3px 15px;
 	line-height: 25px;
