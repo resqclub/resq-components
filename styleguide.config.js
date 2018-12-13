@@ -4,7 +4,6 @@ module.exports = {
 	components: 'src/*.vue',
 	skipComponentsWithoutExample: true,
 	require: [
-		path.join(__dirname, 'test.css')
+		'vue-material-design-icons/styles.css'
 	]
 }
-

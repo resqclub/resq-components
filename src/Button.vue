@@ -24,7 +24,7 @@ export default {
 button {
 	// border: 1px solid #888
 	height: 32px
-	padding: 10px 15px
+	padding: 9px 15px
 	line-height: 14px
 	border-radius: 16px
 	font-size: $size-s

@@ -5,7 +5,9 @@
   "module": "index.mjs",
   "author": "Antti Kissaniemi <antti@resq-club.com>",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "vue-material-design-icons": "^2.4.0"
+  },
   "devDependencies": {
     "css-loader": "^1.0.1",
     "html-webpack-plugin": "^3.2.0",
