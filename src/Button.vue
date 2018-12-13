@@ -5,7 +5,9 @@
 -->
 
 <template>
-	<button @click="clicked"><slot /></button>
+	<button @click="clicked">
+		<slot/>
+	</button>
 </template>
 
 <script>
@@ -13,26 +15,26 @@ export default {
 	methods: {
 		clicked() {
 			this.$emit('click')
-		}
-	}
-};
+		},
+	},
+}
 </script>
 
 <style lang='stylus' scoped>
-@import './common.styl'
+@import './common.styl';
 
 button {
 	height: 32px;
-    padding: 3px 15px;
-    line-height: 25px;
-    border-radius: 16px;
-    font-size: $size-s
-    background: #1bcbac;
-	color: white
-    border: none;
-    cursor: pointer;
-    outline: none;
-    white-space: nowrap;
+	padding: 3px 15px;
+	line-height: 25px;
+	border-radius: 16px;
+	font-size: $size-s;
+	background: #1bcbac;
+	color: white;
+	border: none;
+	cursor: pointer;
+	outline: none;
+	white-space: nowrap;
 
 	&:hover {
 		// background: #666
@@ -48,9 +50,8 @@ button {
 	}
 
 	&:disabled {
-		cursor: default
-		background #aaa
+		cursor: default;
+		background: #aaa;
 	}
 }
-
 </style>
