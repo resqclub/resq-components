@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import './common.styl'
+@import '../common.styl'
 
 ul.Menu {
 	list-style-type: none 

@@ -1,7 +1,7 @@
 let path = require('path')
 
 module.exports = {
-	components: 'src/*.vue',
+	components: 'src/components/**/*.vue',
 	skipComponentsWithoutExample: true,
 	require: [
 		'vue-material-design-icons/styles.css',

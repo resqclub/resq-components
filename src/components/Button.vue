@@ -21,7 +21,7 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@import './common.styl';
+@import '../common.styl';
 
 button {
 	font-family: 'brother-1816';
