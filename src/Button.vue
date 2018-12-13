@@ -22,25 +22,17 @@ export default {
 @import './common.styl'
 
 button {
-	// border: 1px solid #888
-	height: 32px
-	padding: 9px 15px
-	line-height: 14px
-	border-radius: 16px
-	font-size: $size-s
-	// text-transform: uppercase
-	// font-variant: small-caps
-
-	background #1bcbac
+	height: 32px;
+    padding: 3px 15px;
+    line-height: 25px;
+    border-radius: 16px;
+    font-size: $size-s
+    background: #1bcbac;
 	color: white
-
-	border: none
-
-	cursor: pointer
-
-	outline: none;
-
-	white-space: nowrap;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    white-space: nowrap;
 
 	&:hover {
 		// background: #666
