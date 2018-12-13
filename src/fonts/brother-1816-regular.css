@@ -1,0 +1,6 @@
+@font-face {
+  font-family: 'brother-1816';
+  font-weight: 500;
+  src: url(fonts/brother-1816-regular.woff) format('woff'),
+       url(fonts/brother-1816-regular.woff2) format('woff2');
+}
