@@ -55,5 +55,10 @@ button {
 		cursor: default;
 		background: #aaa;
 	}
+
+	.material-design-icon {
+		width: 1.3em;
+    	transform: translateY(-1px) scale(1.4);
+	}
 }
 </style>
