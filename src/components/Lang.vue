@@ -71,7 +71,7 @@ export default {
 				return createElement(
 					'span',
 					{ class: 'error' },
-					'[Missing default slot / slot 0 for key ' + this.id + ']'
+					'[Missing default slot or slot 0 for key ' + this.id + ']'
 				)
 			}
 			return createElement('span', debugIdentification, [
@@ -97,8 +97,9 @@ export default {
 							slotIdx +
 							' is missing'
 					)
-					log('Lang: content was: ' + textContent)
-					log('Lang: slots were: ' + this.$slots)
+					log('Lang: id was:', this.id)
+					log('Lang: content was:', textContent)
+					log('Lang: slots were:', this.$slots)
 					return createElement(
 						'span',
 						{ class: 'error' },
