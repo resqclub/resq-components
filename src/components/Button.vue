@@ -30,7 +30,7 @@ button {
 	line-height: 25px;
 	border-radius: 16px;
 	font-size: $size-s;
-	background: #1bcbac;
+	background: $color-resq-green;
 	color: white;
 	border: none;
 	cursor: pointer;
