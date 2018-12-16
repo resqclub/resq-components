@@ -6,6 +6,10 @@ window.lang = {
 	settings: {
 		title: 'Settings',
 		description: 'This is where you configure stuff'
+	},
+	general: {
+		hello: 'Greetings %@. How are you feeling today?',
+		xHadALittleY: '%@ had a little %@'
 	}
 }
 
