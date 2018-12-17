@@ -1,3 +1,3 @@
-import dismissable from './src/mixins/dismissableMixin'
+import dismissableMixin from './src/mixins/dismissableMixin'
 
-export { dismissable }
+export { dismissableMixin }
