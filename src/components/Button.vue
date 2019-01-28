@@ -25,10 +25,10 @@ export default {
 
 button {
 	font-family: 'brother-1816';
-	height: 32px;
-	padding: 3px 15px;
-	line-height: 25px;
-	border-radius: 16px;
+	height: 36px;
+	padding: 0px 20px;
+	line-height: 36px;
+	border-radius: 18px;
 	font-size: $size-s;
 	background: $color-resq-green;
 	color: white;
@@ -59,7 +59,7 @@ button {
 
 	.material-design-icon {
 		width: 1.3em;
-    	transform: translateY(-1px) scale(1.4);
+    	transform: translateY(-2px) scale(1.7);
 	}
 }
 </style>
