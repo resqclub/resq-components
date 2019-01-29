@@ -37,6 +37,7 @@ button {
 	outline: none;
 	white-space: nowrap;
     box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.21);
+	font-weight: bold;
 
 	&:hover {
 		// background: #666
