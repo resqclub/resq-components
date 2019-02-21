@@ -1,5 +1,5 @@
 {
-  "name": "resq-components",
+  "name": "@resqclub/resq-components",
   "version": "1.0.0",
   "main": "index.js",
   "module": "index.mjs",
