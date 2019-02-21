@@ -5,7 +5,7 @@
 -->
 
 <template>
-	<button @click="clicked" class="r-button">
+	<button @click="clicked" class="Button">
 		<slot/>
 	</button>
 </template>
