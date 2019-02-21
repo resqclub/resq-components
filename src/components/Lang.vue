@@ -2,7 +2,9 @@
 <script>
 let langRoot = window.lang
 
-let log = console.log
+function log(...args) {
+	console.log(...args)
+}
 
 if (langRoot === undefined) {
 	log('Lang: window.lang is not defined')
