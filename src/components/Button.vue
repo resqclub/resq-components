@@ -1,17 +1,18 @@
 <!--
 	A simple button component to test out importing .vue components
 
-	<Button></Button>
+	<Button>Content</Button>
 -->
 
 <template>
-	<button @click="clicked">
+	<button @click="clicked" class="r-button">
 		<slot/>
 	</button>
 </template>
 
 <script>
 export default {
+	name: 'Button',
 	methods: {
 		clicked() {
 			this.$emit('click')
