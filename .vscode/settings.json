@@ -1,4 +1,12 @@
 {
+    "eslint.packageManager": "yarn",
+    "files.trimTrailingWhitespace": true,
+    "editor.wordWrapColumn": 100,
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.rulers": [
+        100
+    ],
+    "files.insertFinalNewline": true,
     "vetur.format.defaultFormatter.html": "prettier",
     "vetur.format.options.tabSize": 4,
     "vetur.format.options.useTabs": true,
