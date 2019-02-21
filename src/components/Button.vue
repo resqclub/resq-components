@@ -23,9 +23,11 @@ export default {
 
 <style lang='stylus' scoped>
 @import '../common.styl';
+@import '../fonts/brother-1816-mixins.styl';
 
 button {
-	font-family: 'brother-1816';
+	brother-medium()
+
 	height: 36px;
 	padding: 0px 20px;
 	line-height: 36px;
@@ -38,7 +40,6 @@ button {
 	outline: none;
 	white-space: nowrap;
     box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.21);
-	font-weight: bold;
 
 	&:hover {
 		// background: #666
