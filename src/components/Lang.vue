@@ -29,6 +29,10 @@ function traverse(root, path) {
 	return node
 }
 
+export function findLangKey(key) {
+	return traverse(langRoot, key.split('.'))
+}
+
 export default {
 	props: {
 		/**
@@ -133,11 +137,8 @@ export default {
 
 			return null
 		},
-		path: function() {
-			return this.id.split('.')
-		},
 		content: function() {
-			return traverse(langRoot, this.path)
+			return findLangKey(this.id)
 		},
 	},
 }
