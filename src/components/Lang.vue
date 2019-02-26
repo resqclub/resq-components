@@ -11,26 +11,27 @@ if (langRoot === undefined) {
 	langRoot = {}
 }
 
-function traverse(root, path) {
+function traverse(root, key) {
+	let path = key.split('.')
 	let node = root
 
 	for (let i = 0; i < path.length; i++) {
-		let key = path[i]
-		node = node[key]
+		let keyPart = path[i]
+		node = node[keyPart]
 		if (node === undefined) {
-			log('Lang: could not find string with id "' + path.join('.') + '"')
+			log('Lang: could not find string with id "' + key + '"')
 			return null
 		}
 	}
 	if (typeof node !== 'string') {
-		log('Lang: the string with id "' + path.join('.') + '" is not a string')
+		log('Lang: the string with id "' + key + '" is not a string')
 		return null
 	}
 	return node
 }
 
 export function findLangKey(key) {
-	return traverse(langRoot, key.split('.'))
+	return traverse(langRoot, key)
 }
 
 export default {
@@ -74,6 +75,7 @@ export default {
 			//
 			// TODO might make sense to just create a <span> so we can include debug attrs and make
 			// all translations inspectable.
+			// return createElement('span', debugAttrs, this.content)
 			return this._v(this.content)
 		}
 
