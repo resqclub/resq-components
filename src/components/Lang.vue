@@ -71,12 +71,7 @@ export default {
 
 		// Case 2: simple key, no interpolation.
 		if (requiredSlots === 0) {
-			// A semi-undocumented way to create text nodes.
-			//
-			// TODO might make sense to just create a <span> so we can include debug attrs and make
-			// all translations inspectable.
-			// return createElement('span', debugAttrs, this.content)
-			return this._v(this.content)
+			return createElement('span', debugAttrs, this.content)
 		}
 
 		// Case 3: one placeholder - we use the default slot or slot number 0,
