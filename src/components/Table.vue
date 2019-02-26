@@ -62,7 +62,7 @@ export default {
 					id: 5,
 					orderId: 47,
 					rating: 'bad',
-					text: 'The babies were tasty and order items did not exist at all',
+					text: 'The bananas were tasty and order items did not exist at all',
 					reason: null,
 					createdAt: '2019-02-19T17:23:21.000Z',
 					updatedAt: '2019-02-26T13:04:27.000Z',
