@@ -2,18 +2,25 @@
 	<table v-if="hasData">
 		<thead>
 			<tr>
-				<th v-for="columnName in columnNames">{{ columnName }}</th>
+				<th v-for="columnId in columnIds">
+					<template v-if="useLangForColumn(columnId)">
+						<Lang :id="langKeyForColumn(columnId)"></Lang>
+					</template>
+					<template v-else>
+						{{ columnId }}
+					</template>
+				</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr v-for="row in rows">
-				<td v-for="column in columns">
+				<td v-for="column in columnIds">
 					<template v-if="isColumnSpecial(column)">
 						<component v-bind:is="getColumnComponentName(column)" :data="row[column]">
 						</component>
 					</template>
 					<template v-else>
-					{{ row[column] }}
+						{{ row[column] }}
 					</template>
 				</td>
 			</tr>
@@ -27,6 +34,9 @@
 </template>
 
 <script>
+import Lang from './Lang.vue'
+import { findLangKey } from './Lang.vue'
+
 // TODO
 function getColumnName(columnId) {
 	return `Column "${columnId}"`
@@ -43,16 +53,12 @@ export default {
 			return this.rows.length
 		},
 
-		columns: function() {
+		columnIds: function() {
 			if (this.rows.length === 0) {
 				return []
 			}
 			return Object.keys(this.rows[0])
-		},
-
-		columnNames: function() {
-			return this.columns.map(getColumnName)
-		},
+		}
 	},
 	methods: {
 		isColumnSpecial: function(columnId) {
@@ -61,6 +67,18 @@ export default {
 
 		getColumnComponentName: function(columnId) {
 			return this.cellComponents[columnId]
+		},
+
+		// Should I render the column name using the `<Lang>` component?
+		useLangForColumn: function(columnId) {
+			if (!this.langKeyPrefix) {
+				return false
+			}
+			return !!findLangKey(this.langKeyForColumn(columnId))
+		},
+
+		langKeyForColumn: function(columnId) {
+			return this.langKeyPrefix + '.' + columnId
 		}
 	},
 	data: function() {
@@ -96,6 +114,19 @@ export default {
 			type: Object,
 			required: false,
 			default: function() { return {} }
+		},
+
+		/**
+		 * Language key prefix.
+		 *
+		 * If specified, use the `<Lang>` component to fetch column names from the global
+		 * `window.lang` object. The name for column `columnId` is fetched from
+		 * `window.lang.<langKeyPrefix>.<columnId>`.
+		 */
+		langKeyPrefix: {
+			type: String,
+			required: false,
+			default: ''
 		}
 	},
 }

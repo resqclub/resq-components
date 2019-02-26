@@ -1,8 +1,65 @@
 This is a table.
 
+Give table an array of objects in its `data` property and it will create a table.
+
+```js
+<Table :data="[{ id: 1, name: 'xyz' }, { id: 2, name: 'abc' }]">
+</Table>
+```
+
+To give translated names to column headings, use `langKeyPrefix` property:
+
 ```js
 
-<Table :data="[
+window.lang.admin = {
+	table: {
+		users: {
+			id: 'User id',
+			name: 'Full name'
+		},
+		partners: {
+			id: 'Partner id',
+			name: 'Name of venue'
+		}
+	}
+}
+
+<div>
+
+<Table style="width: 49%; float: left" langKeyPrefix="admin.table.users" :data="[
+	{ id: 1, name: 'Joe Whatshisname' },
+	{ id: 2, name: 'Alice Youknowwho' }
+]" />
+
+<Table style="width: 49%; float: right" langKeyPrefix="admin.table.partners" :data="[
+	{ id: 1, name: 'Bob\'s Burgers' },
+	{ id: 2, name: 'Kustaan Kaljaasi' }
+]" />
+
+</div>
+
+```
+
+Table always takes 100% width (unless explicitly told otherwise). A slightly larger example:
+
+```js
+
+window.lang.tableExample = {
+	review: {
+		tableColumnNames: {
+			id: 'Id',
+			orderId: 'Order id',
+			rating: 'Rating',
+			text: 'Details',
+			reason: 'Reason',
+			createdAt: 'Review created',
+			updatedAt: 'Review last edited',
+			summary: 'Order summary'
+		}
+	}
+}
+
+<Table :langKeyPrefix="'tableExample.review.tableColumnNames'" :data="[
 	{
 		id: 15,
 		orderId: 45,
@@ -59,8 +116,8 @@ This is a table.
 </Table>
 ```
 
-If a Table does not have the data property, or the data property is an empty array, it renders the
-slot `emptyState` instead:
+A Table with no data renders the `emptyState` slot instead (if present; otherwise it renders an
+empty element):
 
 ```js
 <Table>
