@@ -58,3 +58,14 @@ This is a table.
 " >
 </Table>
 ```
+
+If a Table does not have the data property, or the data property is an empty array, it renders the
+slot `emptyState` instead:
+
+```js
+<Table>
+	<template v-slot:emptyState>
+		<div style="text-align: center; font-style: italic">You have no data. Go add some!</div>
+	</template>
+</Table>
+```

@@ -1,5 +1,5 @@
 <template>
-	<table>
+	<table v-if="hasData">
 		<thead>
 			<tr>
 				<th v-for="columnName in columnNames">{{ columnName }}</th>
@@ -11,6 +11,9 @@
 			</tr>
 		</tbody>
 	</table>
+	<div v-else>
+		<slot name="emptyState"></slot>
+	</div>
 </template>
 
 <script>
@@ -26,6 +29,10 @@ function clone(object) {
 export default {
 	name: 'Table',
 	computed: {
+		hasData: function() {
+			return this.rows.length
+		},
+
 		columns: function() {
 			if (this.rows.length === 0) {
 				return []
@@ -47,7 +54,7 @@ export default {
 		}
 
 		return {
-			rows
+			rows,
 		}
 	},
 	props: {
