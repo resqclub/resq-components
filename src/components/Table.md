@@ -64,7 +64,7 @@ slot `emptyState` instead:
 
 ```js
 <Table>
-	<template v-slot:emptyState>
+	<template #emptyState>
 		<div style="text-align: center; font-style: italic">You have no data. Go add some!</div>
 	</template>
 </Table>
