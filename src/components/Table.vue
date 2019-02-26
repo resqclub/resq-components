@@ -22,7 +22,7 @@
 			<tr v-for="row in sortedRows" :key="row.id">
 				<td v-for="column in columnIds" :key="column">
 					<template v-if="isColumnSpecial(column)">
-						<component v-bind:is="getColumnComponentName(column)" :data="row[column]">
+						<component :is="getColumnComponentName(column)" :data="row[column]">
 						</component>
 					</template>
 					<template v-else>
