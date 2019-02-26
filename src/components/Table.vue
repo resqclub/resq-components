@@ -7,7 +7,15 @@
 		</thead>
 		<tbody>
 			<tr v-for="row in rows">
-				<td v-for="column in columns">{{ row[column] }}</td>
+				<td v-for="column in columns">
+					<template v-if="isColumnSpecial(column)">
+						<component v-bind:is="getColumnComponentName(column)" :data="row[column]">
+						</component>
+					</template>
+					<template v-else>
+					{{ row[column] }}
+					</template>
+				</td>
 			</tr>
 		</tbody>
 	</table>
@@ -44,6 +52,15 @@ export default {
 			return this.columns.map(getColumnName)
 		},
 	},
+	methods: {
+		isColumnSpecial: function(columnId) {
+			return !!this.cellComponents[columnId]
+		},
+
+		getColumnComponentName: function(columnId) {
+			return this.cellComponents[columnId]
+		}
+	},
 	data: function() {
 		let rows
 
@@ -61,7 +78,23 @@ export default {
 		/**
 		 * Give the master data (array of objects) to the Table with the `data` prop.
 		 */
-		data: Array,
+		data: {
+			type: Array,
+			required: false,
+			default: function() { return [] }
+		},
+
+		/**
+		 * A mapping of column ids to component names.
+		 *
+		 * For example, the mapping `{ columnId: 'ComponentName' }` results in `columnId` columns to
+		 * be rendered as `<ComponentName :data="columnData" />`.
+		 */
+		cellComponents: {
+			type: Object,
+			required: false,
+			default: function() { return {} }
+		}
 	},
 }
 </script>
