@@ -20,6 +20,8 @@
 		</tbody>
 	</table>
 	<div v-else>
+		<!-- @slot The `emptyState` slot is rendered in the table's place whenever no other content
+		exists. -->
 		<slot name="emptyState"></slot>
 	</div>
 </template>

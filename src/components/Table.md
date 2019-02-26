@@ -63,7 +63,12 @@ If a Table does not have the data property, or the data property is an empty arr
 slot `emptyState` instead:
 
 ```js
-<div style="text-align: center; font-style: italic">You have no data. Go add some!</div>
+<Table>
+	<template v-slot:emptyState>
+		<div style="text-align: center; font-style: italic">You have no data. Go add some!</div>
+	</template>
+</Table>
+
 ```
 
 Often you might want to render a custom component inside a table cell. To accomplish this, you
