@@ -31,6 +31,11 @@ function traverse(root, path) {
 
 export default {
 	props: {
+		/**
+		 * `id` specifies a key for the text content. The content is read from `window.lang.<id>`.
+		 * `<Lang>` will not crash even if you try to use a key that does not exist - it will render
+		 * an error instead.
+		 */
 		id: {
 			type: String,
 			required: true,
@@ -39,13 +44,13 @@ export default {
 	render: function(createElement) {
 		let textContent = this.content
 
-		let debugIdentification = {
+		let debugAttrs = {
 			attrs: {
 				'data-lang-key': this.id,
 			},
 		}
 
-		debugIdentification = null
+		// debugAttrs = null
 
 		// Case 1: no such key. Return an error instead.
 		// Probably could do something else in production.
@@ -61,7 +66,10 @@ export default {
 
 		// Case 2: simple key, no interpolation.
 		if (requiredSlots === 0) {
-			// A semi-undocumented way to create text nodes
+			// A semi-undocumented way to create text nodes.
+			//
+			// TODO might make sense to just create a <span> so we can include debug attrs and make
+			// all translations inspectable.
 			return this._v(this.content)
 		}
 
@@ -76,7 +84,7 @@ export default {
 					'[Missing default slot or slot 0 for key ' + this.id + ']'
 				)
 			}
-			return createElement('span', debugIdentification, [
+			return createElement('span', debugAttrs, [
 				splitContent[0],
 				slot,
 				splitContent[1],
@@ -114,7 +122,7 @@ export default {
 		}
 
 		// Render function can only return one node so we need to wrap it inside a <span>
-		return createElement('span', resultParts)
+		return createElement('span', debugAttrs, resultParts)
 	},
 
 	computed: {
