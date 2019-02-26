@@ -2,19 +2,25 @@
 	<table v-if="hasData">
 		<thead>
 			<tr>
-				<th v-for="columnId in columnIds">
-					<template v-if="useLangForColumn(columnId)">
-						<Lang :id="langKeyForColumn(columnId)"></Lang>
-					</template>
-					<template v-else>
-						{{ columnId }}
-					</template>
+				<th v-for="columnId in columnIds" :key="columnId">
+					<div @click="sortByColumn(columnId)">
+						<template v-if="useLangForColumn(columnId)">
+							<Lang :id="langKeyForColumn(columnId)"></Lang>
+							<SortedAsc v-if="isSortedAsc(columnId)" />
+							<SortedDesc v-if="isSortedDesc(columnId)" />
+						</template>
+						<template v-else>
+							{{ columnId }}
+							<SortedAsc v-if="isSortedAsc(columnId)" />
+							<SortedDesc v-if="isSortedDesc(columnId)" />
+						</template>
+					</div>
 				</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr v-for="row in rows">
-				<td v-for="column in columnIds">
+			<tr v-for="row in sortedRows" :key="row.id">
+				<td v-for="column in columnIds" :key="column">
 					<template v-if="isColumnSpecial(column)">
 						<component v-bind:is="getColumnComponentName(column)" :data="row[column]">
 						</component>
@@ -34,6 +40,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import Lang from './Lang.vue'
 import { findLangKey } from './Lang.vue'
 
@@ -45,6 +52,14 @@ function getColumnName(columnId) {
 function clone(object) {
 	return JSON.parse(JSON.stringify(object))
 }
+
+Vue.component('SortedAsc', {
+	template: '<span>↑</span>'
+})
+
+Vue.component('SortedDesc', {
+	template: '<span>↓</span>'
+})
 
 export default {
 	name: 'Table',
@@ -58,7 +73,41 @@ export default {
 				return []
 			}
 			return Object.keys(this.rows[0])
-		}
+		},
+
+		// Rows in original order but optionally adorned with a 'id' property if original data did
+		// not have it (this is a must unfortunately due to Vue works, if I understood correctly -
+		// after sorting was introduced, stuff started to break without ids)
+		rows: function() {
+			const rows = this.data ? clone(this.data) : []
+			if (rows.length) {
+				if (rows[0].id === undefined) {
+					rows.forEach((row, idx) => row.id = idx)
+				}
+			}
+
+			return rows
+		},
+
+		sortedRows: function() {
+			if (!this.sortColumn) {
+				return clone(this.rows)
+			} else {
+				let result = clone(this.rows)
+				result.sort((row1, row2) => {
+					const lhs = row1[this.sortColumn]
+					const rhs = row2[this.sortColumn]
+					if (lhs < rhs) {
+						return -this.sortOrder
+					} else if (lhs > rhs) {
+						return this.sortOrder
+					} else {
+						return 0
+					}
+				})
+				return result
+			}
+		},
 	},
 	methods: {
 		isColumnSpecial: function(columnId) {
@@ -79,19 +128,32 @@ export default {
 
 		langKeyForColumn: function(columnId) {
 			return this.langKeyPrefix + '.' + columnId
+		},
+
+		sortByColumn: function(columnId) {
+			if (this.sortColumn === columnId) {
+				this.sortOrder *= -1
+			} else {
+				this.sortColumn = columnId
+				this.sortOrder = 1
+			}
+		},
+
+		isSortedAsc: function(columnId) {
+			return this.sortColumn === columnId && this.sortOrder === 1
+		},
+
+		isSortedDesc: function(columnId) {
+			return this.sortColumn === columnId && this.sortOrder === -1
 		}
 	},
 	data: function() {
-		let rows
-
-		if (this.data) {
-			rows = clone(this.data)
-		} else {
-			rows = []
-		}
+		const sortColumn = null
+		const sortOrder = 1
 
 		return {
-			rows,
+			sortColumn,
+			sortOrder
 		}
 	},
 	props: {

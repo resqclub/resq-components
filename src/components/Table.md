@@ -133,6 +133,11 @@ can give the Table a `cellComponents` object, which is a mapping from column ids
 The component gets its content via the `data` property. In this example, 'nicely formatted date'
 is rendered by `DateCell` and 'reversed summary' is rendered by `ReversedCell`.
 
+This example also demostrates another feature of `<Table>` - if the source rows have no `id`
+property, it will be added, since Vue really likes have keys to keep track of elements when it is
+rendering lists. (Otherwise bugs would appear; for example, custom components were not properly
+rendered after sorting.)
+
 ```js
 
 const Vue = require('vue').default
@@ -172,15 +177,17 @@ Vue.component('DateCell', DateCell)
 Vue.component('ReversedCell', ReversedCell)
 
 <Table :data="[{
-	id: 4,
 	'nicely formatted date': '2019-02-19T17:20:52.000Z',
 	summary: '1 x Fermented eucalyptus oil',
 	'reversed summary': '1 x Fermented eucalyptus oil',
 }, {
-	id: 1,
 	'nicely formatted date': '2019-02-19T17:13:40.000Z',
 	summary: '2 x Kotimaista mässyä',
 	'reversed summary': '2 x Kotimaista mässyä',
+}, {
+	'nicely formatted date': '2019-02-19T17:29:38.000Z',
+	summary: '3 x Edible beef salad',
+	'reversed summary': '3 x Edible beef salad',
 }]" :cellComponents="{
 	'nicely formatted date': 'DateCell',
 	'reversed summary': 'ReversedCell'
