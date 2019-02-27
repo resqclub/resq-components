@@ -54,11 +54,11 @@ function clone(object) {
 }
 
 Vue.component('SortedAsc', {
-	template: '<span>↑</span>'
+	template: '<span>↑</span>',
 })
 
 Vue.component('SortedDesc', {
-	template: '<span>↓</span>'
+	template: '<span>↓</span>',
 })
 
 export default {
@@ -82,7 +82,7 @@ export default {
 			const rows = this.data ? clone(this.data) : []
 			if (rows.length) {
 				if (rows[0].id === undefined) {
-					rows.forEach((row, idx) => row.id = idx)
+					rows.forEach((row, idx) => (row.id = idx))
 				}
 			}
 
@@ -145,7 +145,7 @@ export default {
 
 		isSortedDesc: function(columnId) {
 			return this.sortColumn === columnId && this.sortOrder === -1
-		}
+		},
 	},
 	data: function() {
 		const sortColumn = null
@@ -153,7 +153,7 @@ export default {
 
 		return {
 			sortColumn,
-			sortOrder
+			sortOrder,
 		}
 	},
 	props: {
@@ -163,7 +163,9 @@ export default {
 		data: {
 			type: Array,
 			required: false,
-			default: function() { return [] }
+			default: function() {
+				return []
+			},
 		},
 
 		/**
@@ -175,7 +177,9 @@ export default {
 		cellComponents: {
 			type: Object,
 			required: false,
-			default: function() { return {} }
+			default: function() {
+				return {}
+			},
 		},
 
 		/**
@@ -188,24 +192,82 @@ export default {
 		langKeyPrefix: {
 			type: String,
 			required: false,
-			default: ''
-		}
+			default: '',
+		},
 	},
 }
 </script>
 
 <style lang='stylus' scoped>
+@import '../fonts/brother-1816-mixins.styl'
+
 table {
 	border-collapse: collapse
 	width: 100%
 
 	th, td {
-		border: 1px solid #ccc
+		// Makes padding part of height
+		box-sizing: border-box
+		padding: 10px 10px
 	}
 
 	th {
-		background: #eee
-		font-weight: 600
+		background: transparent
+		brother-regular()
+		text-transform: uppercase
+		// guess
+		color: #888
+		height: 50px
+		font-size: 12px
+	}
+
+	td {
+		brother-medium()
+		background: white
+		// guess
+		color: #373737
+		height: 60px
+		font-size: 12px
+	}
+
+	$table-border-radius = 3px
+
+	tr:not(:first-child) {
+		border-top: 1px solid #ececec
+	}
+
+	tbody {
+		box-shadow: 0px 1px 3px rgba(160, 160, 160, 0.4)
+	}
+
+	tbody {
+		tr:first-child {
+			td:first-child {
+				border-top-left-radius: $table-border-radius
+			}
+
+			td:last-child {
+				border-top-right-radius: $table-border-radius
+			}
+		}
+
+		tr:last-child {
+			td:first-child {
+				border-bottom-left-radius: $table-border-radius
+			}
+
+			td:last-child {
+				border-bottom-right-radius: $table-border-radius
+			}
+		}
+	}
+
+	th:first-child, td:first-child {
+		padding-left: 25px
+	}
+
+	th:last-child, td:last-child {
+		padding-right: 25px
 	}
 }
 </style>
