@@ -167,7 +167,7 @@ Vue.component('RatingCell', {
 			}
 		}
 	},
-	template: `<span>{{ icon }} <span :style="style"> {{ data }}</span>`
+	template: `<span>{{ icon }} <span :style="style"> {{ data }}</span></span>`
 })
 
 Vue.component('TimeAgo', {
