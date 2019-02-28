@@ -75,26 +75,16 @@ export default {
 		},
 
 		/**
-		 * A mapping of column ids to component names.
-		 *
-		 * For example, the mapping `{ columnId: 'ComponentName' }` results in `columnId` columns to
-		 * be rendered as `<ComponentName :data="columnData" />`.
-		 */
-		cellComponents: {
-			type: Object,
-			required: false,
-			default: function() {
-				return {}
-			},
-		},
-
-		/**
 		 * Determines which columns are visible and in which order. If not specified, all columns
 		 * are visible and the order is taken from the first `Object.keys(data[0])`.
 		 *
 		 * Column attributes:
-		 * - `id` determines the key that is used to access the column content
-		 * - `class` (optional) determines an optional class given to <td> elements in this column
+		 *
+		 * - `id`: determines the key that is used to access the column content
+		 * - `class` (optional): determines an optional class given to `<td>` elements in this
+		 *   column
+		 * - `component` (optional): if given, this component is rendered inside the `<td>`. The
+		 *   content of the cell is passed to the component via the `data` prop.
 		 */
 		columns: {
 			type: Array,
@@ -145,6 +135,19 @@ export default {
 			} else {
 				return this.guessedColumnIds
 			}
+		},
+
+		cellComponents: function() {
+			if (!this.columns) {
+				return {}
+			}
+			const result = {}
+			for (let column of this.columns) {
+				if (column.component) {
+					result[column.id] = column.component
+				}
+			}
+			return result
 		},
 
 		// Rows in original order but optionally adorned with a 'id' property if original data did

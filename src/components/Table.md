@@ -52,76 +52,84 @@ empty element):
 
 ```
 
-Often you might want to render a custom component inside a table cell. To accomplish this, you
-can give the Table a `cellComponents` object, which is a mapping from column ids to component names.
-The component gets its content via the `data` property. In this example, 'nicely formatted date'
-is rendered by `DateCell` and 'reversed summary' is rendered by `ReversedCell`.
+To control which columns are visible, use the `columns` property. `columns` is an array of columns
+that have `id`, optional `className` (given to the `<td>` element), and an optional `component`,
+which is rendered inside the cell and is given the cell data as its `data` property.
+
+The `component` can be a Vue options object, a Vue component, or a string (if it's a globally
+registered component).
+
+In this example, 'summary' is rendered by `ItalicSummaryComponent`, 'nicely formatted date' is
+rendered by `DateCell` and 'reversed summary' is rendered by `ReversedCell`.
 
 This example also demonstrates another feature of `<Table>` - if the source rows have no `id`
 property, it will be added, since Vue really likes have keys to keep track of elements when it is
 rendering lists. (Otherwise bugs would appear; for example, custom components were not properly
 rendered after sorting.)
 
-This example demonstrates a third feature: `columns` prop determines the columns that are shown.
-
 ```js
 
 const Vue = require('vue').default
 
 const DateCell = {
-	props: {
-		// String as a ISO date
-		data: String
-	},
-	data: function() {
-		return {
-			date: new Date(this.data || new Date())
-		}
-	},
-	computed: {
-		formattedDate: function() {
-			return this.date.toLocaleDateString('en-US', {
-				weekday: 'long', year: 'numeric', month: 'long',
-				day: 'numeric', hour: 'numeric', minute: 'numeric'
-			})
-		}
-	},
-	template: `<span style="font-style: italic" :title="'Data was: ' + this.data">{{ this.formattedDate }}</span>`,
-}
-
-const ReversedCell = {
-	props: { data: String },
-	computed: {
-		content: function() {
-			return this.data.split('').reverse().join('')
-		}
-	},
-	template: `<span style="font-weight: bold">{{ content }}</span>`
+    props: {
+        // String as a ISO date
+        data: String
+    },
+    data: function() {
+        return {
+            date: new Date(this.data || new Date())
+        }
+    },
+    computed: {
+        formattedDate: function() {
+            return this.date.toLocaleDateString('en-US', {
+                weekday: 'long', year: 'numeric', month: 'long',
+                day: 'numeric', hour: 'numeric', minute: 'numeric'
+            })
+        }
+    },
+	template: `<span style="text-decoration: underline"
+		:title="'Data was: ' + this.data">{{ this.formattedDate }}</span>`,
 }
 
 Vue.component('DateCell', DateCell)
-Vue.component('ReversedCell', ReversedCell)
+
+const ReversedCell = {
+    props: { data: String },
+    computed: {
+        content: function() {
+            return this.data.split('').reverse().join('')
+        }
+    },
+    template: `<span style="font-weight: bold">{{ content }}</span>`
+}
+
+const ItalicSummaryComponent = Vue.component('ItalicSummary', {
+    props: ['data'],
+    template: "<i>{{$props.data}}</i>"
+})
 
 <Table :data="[{
-	'nicely formatted date': '2019-02-19T17:20:52.000Z',
-	summary: '1 x Fermented eucalyptus oil',
-	'reversed summary': '1 x Fermented eucalyptus oil',
+    'nicely formatted date': '2019-02-19T17:20:52.000Z',
+    summary: '1 x Fermented eucalyptus oil',
+    'reversed summary': '1 x Fermented eucalyptus oil',
+    extra: 123
 }, {
-	'nicely formatted date': '2019-02-19T17:13:40.000Z',
-	summary: '2 x Kotimaista mässyä',
-	'reversed summary': '2 x Kotimaista mässyä',
+    'nicely formatted date': '2019-02-19T17:13:40.000Z',
+    summary: '2 x Kotimaista mässyä',
+    'reversed summary': '2 x Kotimaista mässyä',
+    extra: 234
 }, {
-	'nicely formatted date': '2019-02-19T17:29:38.000Z',
-	summary: '3 x Edible beef salad',
-	'reversed summary': '3 x Edible beef salad',
+    'nicely formatted date': '2019-02-19T17:29:38.000Z',
+    summary: '3 x Edible beef salad',
+    'reversed summary': '3 x Edible beef salad',
+    extra: 'grumpy tortoise'
 }
-]" :cellComponents="{
-	'nicely formatted date': 'DateCell',
-	'reversed summary': 'ReversedCell'
-}" :columns="[
-	{ id: 'summary' },
-	{ id: 'reversed summary' },
-	{ id: 'nicely formatted date' }
+]" :columns="[
+    { id: 'summary', component: ItalicSummaryComponent },
+    { id: 'reversed summary', component: ReversedCell },
+    { id: 'nicely formatted date', component: 'DateCell' }
 ]">
 </Table>
 ```
@@ -146,7 +154,7 @@ window.lang.tableExample = {
 }
 
 const Vue = require('vue').default
-Vue.component('RatingCell', {
+const RatingCell = Vue.component('RatingCell', {
 	props: ['data'],
 	computed: {
 		icon: function() {
@@ -173,10 +181,10 @@ Vue.component('RatingCell', {
 			}
 		}
 	},
-	template: `<span>{{ icon }} <span :style="style"> {{ data }}</span></span>`
+	template: `<span class="RatingCell">{{ icon }} <span :style="style"> {{ data }}</span></span>`
 })
 
-Vue.component('TimeAgo', {
+const TimeAgo = Vue.component('TimeAgo', {
 	props: ['data'],
 	computed: {
 		content: function() {
@@ -192,10 +200,9 @@ Vue.component('TimeAgo', {
 			return this.data.replace('T', ' ').replace('Z', '')
 		}
 	},
-	template: `<span :title="readableData">{{ content }}</span>`
+	template: `<span class="TimeAgo" :title="readableData">{{ content }}</span>`
 })
 <Table :langKeyPrefix="'tableExample.review.tableColumnNames'"
-:cellComponents="{ rating: 'RatingCell', createdAt: 'TimeAgo' }"
 :data="[
 	{
 		id: 15,
@@ -250,9 +257,9 @@ Vue.component('TimeAgo', {
 	},
 ]
 " :columns="[
-	{ id: 'createdAt' },
+	{ id: 'createdAt', component: TimeAgo },
 	{ id: 'summary' },
-	{ id: 'rating' },
+	{ id: 'rating', component: RatingCell },
 	{ id: 'text', class: 'Table-Cell-italic' },
 	{ id: 'reason' }
 ]">
