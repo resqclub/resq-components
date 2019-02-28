@@ -20,12 +20,13 @@
 		</thead>
 		<tbody>
 			<tr v-for="row in sortedRows" :key="row.id">
-				<td v-for="column in columnIds" :key="column" :class="getColumnClass(column)"><template v-if="isColumnSpecial(column)">
+				<td v-for="column in columnIds" :key="column" :class="getColumnClass(column)">
+					<template v-if="isColumnSpecial(column)">
 						<component :is="getColumnComponentName(column)" :data="row[column]">
 						</component>
-					</template><template v-else>
-						{{ row[column] }}
-					</template></td>
+					</template>
+					<template v-else>{{ row[column] }}</template>
+				</td>
 			</tr>
 		</tbody>
 	</table>
