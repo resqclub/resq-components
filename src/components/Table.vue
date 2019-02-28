@@ -248,6 +248,7 @@ table {
 		// Makes padding part of height
 		box-sizing: border-box
 		padding: 10px 10px
+		text-align: left
 	}
 
 	th {
