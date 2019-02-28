@@ -54,11 +54,11 @@ function clone(object) {
 }
 
 Vue.component('SortedAsc', {
-	template: '<span>↑</span>',
+	render: h => h('span', '↑')
 })
 
 Vue.component('SortedDesc', {
-	template: '<span>↓</span>',
+	render: h => h('span', '↓')
 })
 
 export default {
