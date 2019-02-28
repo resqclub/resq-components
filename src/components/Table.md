@@ -253,7 +253,7 @@ Vue.component('TimeAgo', {
 	{ id: 'createdAt' },
 	{ id: 'summary' },
 	{ id: 'rating' },
-	{ id: 'text' },
+	{ id: 'text', class: 'Table-Cell-italic' },
 	{ id: 'reason' }
 ]">
 </Table>

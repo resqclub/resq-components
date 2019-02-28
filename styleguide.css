@@ -7,3 +7,7 @@ body {
 #Table-container {
     background: #ececec;
 }
+
+.Table-Cell-italic {
+    font-style: italic;
+}

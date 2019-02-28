@@ -20,7 +20,7 @@
 		</thead>
 		<tbody>
 			<tr v-for="row in sortedRows" :key="row.id">
-				<td v-for="column in columnIds" :key="column">
+				<td v-for="column in columnIds" :key="column" :class="getColumnClass(column)">
 					<template v-if="isColumnSpecial(column)">
 						<component :is="getColumnComponentName(column)" :data="row[column]">
 						</component>
@@ -91,9 +91,12 @@ export default {
 		},
 
 		/**
-		 * Determines which columns are visible and in which order.
-		 * If not specified, all columns are visible and the order is taken from the first
-		 * `Object.keys(data[0])`.
+		 * Determines which columns are visible and in which order. If not specified, all columns
+		 * are visible and the order is taken from the first `Object.keys(data[0])`.
+		 *
+		 * Column attributes:
+		 * - `id` determines the key that is used to access the column content
+		 * - `class` (optional) determines an optional class given to <td> elements in this column
 		 */
 		columns: {
 			type: Array,
@@ -218,6 +221,18 @@ export default {
 		isSortedDesc: function(columnId) {
 			return this.sortColumn === columnId && this.sortOrder === -1
 		},
+
+		getColumnClass: function(columnId) {
+			if (!this.columns) {
+				return null
+			}
+			const column = this.columns.find(column => column.id === columnId)
+			if (!column) {
+				return null
+			}
+
+			return column.class
+		}
 	},
 }
 </script>
