@@ -19,7 +19,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr v-for="row in sortedRows" :key="row.id">
+			<tr v-for="row in sortedRows" :key="row.id" @click="rowClicked(row)">
 				<td v-for="column in columnIds" :key="column" :class="getColumnClass(column)">
 					<template v-if="isColumnSpecial(column)">
 						<component :is="getColumnComponentName(column)" :data="row[column]">
@@ -233,6 +233,10 @@ export default {
 			}
 
 			return column.class
+		},
+
+		rowClicked(row) {
+			this.$emit('rowClicked', row)
 		}
 	},
 }

@@ -67,6 +67,9 @@ property, it will be added, since Vue really likes have keys to keep track of el
 rendering lists. (Otherwise bugs would appear; for example, custom components were not properly
 rendered after sorting.)
 
+You can register to @rowClicked custom event. This example shows how to register, but in this
+example the event listener doesn't do anything.
+
 ```js
 
 const Vue = require('vue').default
@@ -130,7 +133,7 @@ const ItalicSummaryComponent = Vue.component('ItalicSummary', {
     { id: 'summary', component: ItalicSummaryComponent },
     { id: 'reversed summary', component: ReversedCell },
     { id: 'nicely formatted date', component: 'DateCell' }
-]">
+]" @rowClicked="'this is how you register to row click event'">
 </Table>
 ```
 
