@@ -63,6 +63,57 @@ Vue.component('SortedDesc', {
 
 export default {
 	name: 'Table',
+
+	props: {
+		/**
+		 * Give the master data (array of objects) to the Table with the `data` prop.
+		 */
+		data: {
+			type: Array,
+			required: false,
+			default: function() {
+				return []
+			},
+		},
+
+		/**
+		 * A mapping of column ids to component names.
+		 *
+		 * For example, the mapping `{ columnId: 'ComponentName' }` results in `columnId` columns to
+		 * be rendered as `<ComponentName :data="columnData" />`.
+		 */
+		cellComponents: {
+			type: Object,
+			required: false,
+			default: function() {
+				return {}
+			},
+		},
+
+		/**
+		 * Language key prefix.
+		 *
+		 * If specified, use the `<Lang>` component to fetch column names from the global
+		 * `window.lang` object. The name for column `columnId` is fetched from
+		 * `window.lang.<langKeyPrefix>.<columnId>`.
+		 */
+		langKeyPrefix: {
+			type: String,
+			required: false,
+			default: '',
+		},
+	},
+
+	data: function() {
+		const sortColumn = null
+		const sortOrder = 1
+
+		return {
+			sortColumn,
+			sortOrder,
+		}
+	},
+
 	computed: {
 		hasData: function() {
 			return this.rows.length
@@ -109,6 +160,7 @@ export default {
 			}
 		},
 	},
+
 	methods: {
 		isColumnSpecial: function(columnId) {
 			return !!this.cellComponents[columnId]
@@ -145,54 +197,6 @@ export default {
 
 		isSortedDesc: function(columnId) {
 			return this.sortColumn === columnId && this.sortOrder === -1
-		},
-	},
-	data: function() {
-		const sortColumn = null
-		const sortOrder = 1
-
-		return {
-			sortColumn,
-			sortOrder,
-		}
-	},
-	props: {
-		/**
-		 * Give the master data (array of objects) to the Table with the `data` prop.
-		 */
-		data: {
-			type: Array,
-			required: false,
-			default: function() {
-				return []
-			},
-		},
-
-		/**
-		 * A mapping of column ids to component names.
-		 *
-		 * For example, the mapping `{ columnId: 'ComponentName' }` results in `columnId` columns to
-		 * be rendered as `<ComponentName :data="columnData" />`.
-		 */
-		cellComponents: {
-			type: Object,
-			required: false,
-			default: function() {
-				return {}
-			},
-		},
-
-		/**
-		 * Language key prefix.
-		 *
-		 * If specified, use the `<Lang>` component to fetch column names from the global
-		 * `window.lang` object. The name for column `columnId` is fetched from
-		 * `window.lang.<langKeyPrefix>.<columnId>`.
-		 */
-		langKeyPrefix: {
-			type: String,
-			required: false,
-			default: '',
 		},
 	},
 }
