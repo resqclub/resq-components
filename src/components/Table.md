@@ -57,10 +57,12 @@ can give the Table a `cellComponents` object, which is a mapping from column ids
 The component gets its content via the `data` property. In this example, 'nicely formatted date'
 is rendered by `DateCell` and 'reversed summary' is rendered by `ReversedCell`.
 
-This example also demostrates another feature of `<Table>` - if the source rows have no `id`
+This example also demonstrates another feature of `<Table>` - if the source rows have no `id`
 property, it will be added, since Vue really likes have keys to keep track of elements when it is
 rendering lists. (Otherwise bugs would appear; for example, custom components were not properly
 rendered after sorting.)
+
+This example demonstrates a third feature: `columns` prop determines the columns that are shown.
 
 ```js
 
@@ -116,7 +118,11 @@ Vue.component('ReversedCell', ReversedCell)
 ]" :cellComponents="{
 	'nicely formatted date': 'DateCell',
 	'reversed summary': 'ReversedCell'
-}">
+}" :columns="[
+	{ id: 'summary' },
+	{ id: 'reversed summary' },
+	{ id: 'nicely formatted date' }
+]">
 </Table>
 ```
 
@@ -243,6 +249,12 @@ Vue.component('TimeAgo', {
 		summary: '2 x Kotimaista mässyä',
 	},
 ]
-">
+" :columns="[
+	{ id: 'createdAt' },
+	{ id: 'summary' },
+	{ id: 'rating' },
+	{ id: 'text' },
+	{ id: 'reason' }
+]">
 </Table>
 ```

@@ -54,11 +54,11 @@ function clone(object) {
 }
 
 Vue.component('SortedAsc', {
-	render: h => h('span', '↑')
+	render: h => h('span', '↑'),
 })
 
 Vue.component('SortedDesc', {
-	render: h => h('span', '↓')
+	render: h => h('span', '↓'),
 })
 
 export default {
@@ -91,6 +91,17 @@ export default {
 		},
 
 		/**
+		 * Determines which columns are visible and in which order.
+		 * If not specified, all columns are visible and the order is taken from the first
+		 * `Object.keys(data[0])`.
+		 */
+		columns: {
+			type: Array,
+			required: false,
+			default: null,
+		},
+
+		/**
 		 * Language key prefix.
 		 *
 		 * If specified, use the `<Lang>` component to fetch column names from the global
@@ -119,11 +130,20 @@ export default {
 			return this.rows.length
 		},
 
-		columnIds: function() {
+		// Guess column ids from the first element.
+		guessedColumnIds: function() {
 			if (this.rows.length === 0) {
 				return []
 			}
 			return Object.keys(this.rows[0])
+		},
+
+		columnIds: function() {
+			if (this.columns) {
+				return this.columns.map(column => column.id)
+			} else {
+				return this.guessedColumnIds
+			}
 		},
 
 		// Rows in original order but optionally adorned with a 'id' property if original data did
