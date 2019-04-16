@@ -259,7 +259,7 @@ table {
 		// guess
 		color: #888
 		height: 50px
-		font-size: 12px
+		font-size: 14px
 	}
 
 	td {
@@ -268,7 +268,7 @@ table {
 		// guess
 		color: #373737
 		height: 60px
-		font-size: 12px
+		font-size: 14px
 	}
 
 	$table-border-radius = 3px
