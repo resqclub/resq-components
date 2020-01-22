@@ -8,7 +8,7 @@ let val = false
 Value: {{val}}
     <Select v-model='val' :items="[{label: 'Yes', value: true}, {label: 'No', value: false}]"></Select>
 
-<Select v-model='val' :items="[{label: 'Yes', value: true}, {label: 'No', value: false}]" disabled="disabled"></Select>
+<Select v-model='val' label="Disabled" :items="[{label: 'Yes', value: true}, {label: 'No', value: false}]" disabled="disabled"></Select>
 
 </div>
 ```
